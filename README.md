@@ -4,16 +4,22 @@ Adafruit_ILI9341の機能拡張版のArduinoライブラリ
 
 <div align="center"><img src="https://github.com/h-nari/Humblesoft_ILI9341/blob/master/img/160907a0.jpg?raw=true" width="512"></div>
 
-## 対象ハードウェア
-
-* ESP8266 Ardino + ILI9341をコントローラとするLCD
-* 他のArduinoでも動くかもしれませんが、テストしていません。
-
 ## 機能拡張項目
 
 * fontxによる日本語表示
  * wrap, getTextBoundsも対応
 * writedata(uint8_t *data, uint32_t len)追加
+
+## 必要な他のライブラリ
+
+* Adafruit_GFX
+* Adafruit_ILI9341 (ver1.0.2以降)
+* SPI
+
+## 対象ハードウェア
+
+* ESP8266 Ardino + ILI9341をコントローラとするLCD
+* 他のArduinoでも動くかもしれませんが、テストしていません。
 
 ## fontx使用例
 
