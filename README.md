@@ -28,7 +28,7 @@ Adafruit_ILI9341の機能拡張版のArduinoライブラリ
 
 ##  同梱しているfontxファイル
 
-fontxディレクトリに同梱させていただいているfontxファイルは、文市(あやち)さんが [blog](http://ayati.cocolog-nifty.com/blog/2012/08/ipalx322416-64a.html"blog")で公開されているILフォントです。ILフォントはIPAフォントをFONTX形式に変換したフォントです。IPAフォントのLicense Agreementも同梱しています。
+fontxディレクトリに同梱させていただいているfontxファイルは、文市(あやち)さんが [blog](http://ayati.cocolog-nifty.com/blog/2012/08/ipalx322416-64a.html "blog")で公開されているILフォントです。ILフォントはIPAフォントをFONTX形式に変換したフォントです。IPAフォントのLicense Agreementも同梱しています。
 
 同梱しているのは16dot ゴシックの半角と全角の個のファイルですが、ILフォントでは16,24,32ドットの明朝、ゴシック、太字処理したものなど多くのファイルが配布されていますので、興味がある人は文市さんの[blog](http://ayati.cocolog-nifty.com/blog/2012/08/ipalx322416-64a.html"blog")からダウンロードしてみてください。
 
