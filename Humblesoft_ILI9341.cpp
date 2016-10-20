@@ -50,6 +50,13 @@ void Humblesoft_ILI9341::setFontx(uint8_t *f0, uint8_t *f1, uint8_t *f2)
   addFontx(f2);
 }
 
+void Humblesoft_ILI9341::setFont(const GFXfont *f)
+{
+  resetFontx();
+  Adafruit_ILI9341::setFont(f);
+}
+
+
 size_t Humblesoft_ILI9341::write(uint8_t c)
 {
   if(m_cFontx)
