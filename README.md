@@ -9,11 +9,14 @@ Adafruit_ILI9341の機能拡張版のArduinoライブラリ
 * fontxによる日本語表示
  * wrap, getTextBoundsも対応
 * writedata(uint8_t *data, uint32_t len)追加
+* VerticalScrollAreaサポート
 
 ## 必要な他のライブラリ
 
 * Adafruit_GFX
 * Adafruit_ILI9341 (ver1.0.2以降)
+* Fontx
+* FontxGfx
 * SPI
 
 ## 対象ハードウェア
@@ -39,4 +42,5 @@ fontxディレクトリに同梱させていただいているfontxファイル�
 
 ## 変更履歴
 
+* 1.0.1 2016/11/02(Wed) Fontx/FontxGfxライブラリ分離、VerticalScrollAreaサポート
 * 1.0.0 2016/09/07(Wed) 初版リリース
