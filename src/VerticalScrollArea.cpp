@@ -8,11 +8,15 @@ VerticalScrollArea::VerticalScrollArea(Humblesoft_ILI9341 *parent):
 
 void VerticalScrollArea::drawPixel(int16_t x, int16_t y, uint16_t color)
 {
-  if(x >= 0 && y < _width && y >= 0 && y < _height){
+  if(x >= 0 && x < _width && y >= 0 && y < _height){
     if(this == &m_parent->tfa){
       m_parent->drawPixel(x, y, color);
     } else if(this == &m_parent->vsa){
-      m_parent->drawPixel(x, m_parent->m_y0 + y, color);
+      int16_t s = m_parent->m_nScrollPos;
+      if(s < m_parent->m_y0) s = m_parent->m_y0;
+      int16_t yy = y + s;
+      if(yy >= m_parent->m_y1) yy += -m_parent->m_y1 + m_parent->m_y0;
+      m_parent->drawPixel(x, yy, color);
     } else if(this == &m_parent->bfa){
       m_parent->drawPixel(x, m_parent->m_y1 + y, color);
     }
