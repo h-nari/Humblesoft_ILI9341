@@ -134,6 +134,8 @@ void Humblesoft_ILI9341::setVerticalScrollArea(uint16_t hTfa, uint16_t hBfa)
     Adafruit_ILI9341::writedata(hVsa);
     Adafruit_ILI9341::writedata(hBfa >> 8);
     Adafruit_ILI9341::writedata(hBfa);
+
+    setScrollPos(m_y0);
   }
 }
 
