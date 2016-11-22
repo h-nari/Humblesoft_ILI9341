@@ -139,4 +139,44 @@ void Humblesoft_ILI9341::setVerticalScrollArea(uint16_t hTfa, uint16_t hBfa)
   }
 }
 
+void Humblesoft_ILI9341::posPrintf(int16_t x,int16_t y,const char *fmt,...)
+{
+  va_list ap;
+  char buf[80];
+  
+  va_start(ap, fmt);
+  vsnprintf(buf,sizeof buf,fmt,ap);
+  va_end(ap);
+
+  setCursor(x,y);
+  print(buf);
+}
+
+void Humblesoft_ILI9341::alignPrintf(int16_t x,int16_t y,TextAlign hAlign,
+				     TextAlign vAlign,const char *fmt,...)
+{
+  va_list ap;
+  char buf[80];
+  int16_t tx,ty;
+  uint16_t tw,th;
+  
+  va_start(ap, fmt);
+  vsnprintf(buf,sizeof buf,fmt,ap);
+  va_end(ap);
+
+  getTextBounds(buf, 0, 0, &tx, &ty, &tw, &th);
+  switch(hAlign){
+  case TA_LEFT:    			break;
+  case TA_CENTER:	x -= tw/2;    	break;
+  case TA_RIGHT:  	x -= tw;	break;
+  }
+  switch(vAlign){
+  case TA_TOP:				break;
+  case TA_CENTER:	y -= th/2;	break;
+  case TA_BOTTOM:	y -= th/2;	break;
+  }
+  setCursor(x,y);
+  print(buf);
+}
+
 

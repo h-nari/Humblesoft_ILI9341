@@ -8,6 +8,8 @@
 class Humblesoft_ILI9341;
 class VerticalScrollArea;
 
+enum TextAlign { TA_NONE, TA_LEFT, TA_CENTER, TA_RIGHT, TA_TOP, TA_BOTTOM};
+
 class FontxGfxVs : public FontxGfx {
  public:
   FontxGfxVs(Adafruit_GFX *pGfx);
@@ -75,6 +77,11 @@ class Humblesoft_ILI9341 : public Adafruit_ILI9341 {
   void scroll(bool bClear=false);
   void scrollDrawPixel(int16_t x, int16_t y, uint16_t color);
   void setVerticalScrollArea(uint16_t tfa, uint16_t bfa);
+  void posPrintf(int16_t x,int16_t y,const char *fmt,...)
+    __attribute__ ((format (print,3,4)));
+  void alignPrintf(int16_t x,int16_t y,TextAlign hAlign,
+		   TextAlign vAlign,const char *fmt,...)
+    __attribute__ ((format (print,5,6)));
   
  protected:
   void process_utf8_byte(uint8_t c, int16_t *pX, int16_t *pY, bool bDraw=true,
