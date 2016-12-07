@@ -14,10 +14,14 @@ Adafruit_ILI9341の機能拡張版のArduinoライブラリ
 ## 必要な他のライブラリ
 
 * Adafruit_GFX
+ * https://github.com/adafruit/Adafruit-GFX-Library
 * Adafruit_ILI9341 (ver1.0.2以降)
+ * https://github.com/adafruit/Adafruit_ILI9341
 * Fontx
+ * https://github.com/h-nari/Fontx
 * FontxGfx
-* SPI
+ * https://github.com/h-nari/FontxGfx
+
 
 ## 対象ハードウェア
 
