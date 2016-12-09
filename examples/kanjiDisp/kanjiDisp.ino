@@ -1,18 +1,26 @@
-#include "Adafruit_GFX.h"
-#include "Adafruit_ILI9341.h"
-#include "Humblesoft_ILI9341.h"
+#include <Adafruit_GFX.h>				// https://github.com/adafruit/Adafruit-GFX-Library
+#include <Adafruit_ILI9341.h>		// https://github.com/adafruit/Adafruit_ILI9341
+#include <Fontx.h>							// https://github.com/h-nari/Fontx
+#include <FontxGfx.h>						// https://github.com/h-nari/FontxGfx
+#include <Humblesoft_ILI9341.h>	// https://github.com/h-nari/Humblesoft_ILI9341
 
-IMPORT_BIN("fontx/ILGH16XB.FNT", font_h);
-IMPORT_BIN("fontx/ILGZ16XB.FNT", font_z);
+// #define IMPORT_FONTX_BINARY
 
-extern uint8_t font_h[], font_z[];
+#ifdef IMPORT_FONTX_BINARY
+IMPORT_BIN("ILGH16XB.FNT", ILGH16XB);
+IMPORT_BIN("ILGZ16XB.FNT", ILGZ16XB);
+extern const uint8_t ILGH16XB[], ILGZ16XB[];
+#else
+#include <fontx/ILGH16XB.h>
+#include <fontx/ILGZ16XB.h>
+#endif
 
 Humblesoft_ILI9341 tft = Humblesoft_ILI9341();
 
 void setup() {
   delay(100);
   tft.begin();
-  tft.setFontx(font_h,font_z);
+  tft.setFontx(ILGH16XB,ILGZ16XB);
   tft.setRotation(3);
   tft.fillScreen(ILI9341_BLACK);
 
@@ -35,4 +43,7 @@ void setup() {
 void loop() {
 }
 
+/*** Local variables: ***/
+/*** tab-width:2 ***/
+/*** End: ***/
 

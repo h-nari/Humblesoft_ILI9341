@@ -1,12 +1,20 @@
-#include "Adafruit_GFX.h"
-#include "Adafruit_ILI9341.h"
-#include "Humblesoft_ILI9341.h"
+#include <Adafruit_GFX.h>				// https://github.com/adafruit/Adafruit-GFX-Library
+#include <Adafruit_ILI9341.h>		// https://github.com/adafruit/Adafruit_ILI9341
+#include <Fontx.h>							// https://github.com/h-nari/Fontx
+#include <FontxGfx.h>						// https://github.com/h-nari/FontxGfx
+#include <Humblesoft_ILI9341.h>	// https://github.com/h-nari/Humblesoft_ILI9341
 
+// #define IMPORT_FONTX_BINARY
 
-IMPORT_BIN("fontx/ILGH16XB.FNT", font_h);
-IMPORT_BIN("fontx/ILGZ16XB.FNT", font_z);
+#ifdef IMPORT_FONTX_BINARY
+IMPORT_BIN("ILGH16XB.FNT", ILGH16XB);
+IMPORT_BIN("ILGZ16XB.FNT", ILGZ16XB);
+extern const uint8_t ILGH16XB[], ILGZ16XB[];
+#else
+#include <fontx/ILGH16XB.h>
+#include <fontx/ILGZ16XB.h>
+#endif
 
-extern uint8_t font_h[], font_z[];
 
 Humblesoft_ILI9341 tft = Humblesoft_ILI9341();
 
@@ -34,14 +42,14 @@ void setup()
   tft.begin();
   tft.setRotation(3);
   tft.fillScreen(ILI9341_BLACK);
-#if 1
+
   tft.setTextSize(4);
   drawTextAndBounds(5, 10, s1);
 
   tft.setTextSize(2);
   drawTextAndBounds(5, 50, "Hello\nWorld");
   
-  tft.setFontx(font_z, font_h);
+  tft.setFontx(ILGH16XB,ILGZ16XB);
   tft.setTextSize(2);
   drawTextAndBounds(160,10, "漢字");
 
@@ -51,12 +59,12 @@ void setup()
   drawTextAndBounds(0,100, "1行目\n２行目");
 
   drawTextAndBounds(160,160, "line wrap test. Very long line.");
-#else
-  tft.setFontx(font_z, font_h);
-  drawTextAndBounds(300,160, "abcd");
-#endif
 }
 
 void loop()
 {
 }
+
+/*** Local variables: ***/
+/*** tab-width:2 ***/
+/*** End: ***/

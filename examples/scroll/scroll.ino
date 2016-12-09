@@ -1,8 +1,15 @@
-#include "Adafruit_GFX.h"
-#include "Adafruit_ILI9341.h"
-#include "Fontx.h"
-#include "FontxGfx.h"
-#include "Humblesoft_ILI9341.h"
+// Required Libraries
+// https://github.com/adafruit/Adafruit-GFX-Library
+// https://github.com/adafruit/Adafruit_ILI9341
+// https://github.com/h-nari/Fontx
+// https://github.com/h-nari/FontxGfx
+// https://github.com/h-nari/Humblesoft_ILI9341
+
+#include <Adafruit_GFX.h>
+#include <Adafruit_ILI9341.h>
+#include <Fontx.h>
+#include <FontxGfx.h>
+#include <Humblesoft_ILI9341.h>
 
 Humblesoft_ILI9341 tft = Humblesoft_ILI9341();
 
@@ -36,3 +43,7 @@ void loop()
   tft.scroll(false);
   delay(10);
 }
+
+/*** Local variables: ***/
+/*** tab-width:2 ***/
+/*** End: ***/
