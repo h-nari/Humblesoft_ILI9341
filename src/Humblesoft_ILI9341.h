@@ -32,7 +32,8 @@ class VerticalScrollArea: public Adafruit_GFX {
   void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color) override;
   void lineFeedHook(int16_t *px, int16_t *py, int16_t h);
   void resetFontx(void) {m_fontx.resetFontx();}
-  void setFontx(uint8_t *f0, uint8_t *f1=NULL, uint8_t *f2=NULL){
+  void setFontx(const uint8_t *f0,const uint8_t *f1=NULL,const uint8_t *f2=NULL)
+  {
     m_fontx.setFontx(f0,f1,f2);
   }
   void setFont(const GFXfont *f = NULL) {
@@ -66,7 +67,7 @@ class Humblesoft_ILI9341 : public Adafruit_ILI9341 {
   size_t write(uint8_t) override;
   void resetFontx(void);
   void addFontx(uint8_t *fontx);
-  void setFontx(uint8_t *f0, uint8_t *f1=NULL, uint8_t *f2=NULL);
+  void setFontx(const uint8_t *f0,const uint8_t *f1=NULL,const uint8_t *f2=NULL);
   void setFont(const GFXfont *f = NULL);
   void getTextBounds(char *string, int16_t x, int16_t y,
 		     int16_t *x1, int16_t *y1, uint16_t *w, uint16_t *h);

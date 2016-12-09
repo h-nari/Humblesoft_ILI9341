@@ -38,7 +38,7 @@ void Humblesoft_ILI9341::addFontx(uint8_t *fontx)
   m_fontx.addFontx(fontx);
 }
 
-void Humblesoft_ILI9341::setFontx(uint8_t *f0, uint8_t *f1, uint8_t *f2)
+void Humblesoft_ILI9341::setFontx(const uint8_t *f0,const uint8_t *f1,const uint8_t *f2)
 {
   m_fontx.setFontx(f0,f1,f2);
 }
