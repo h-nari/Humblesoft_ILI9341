@@ -1,7 +1,7 @@
-#include <Adafruit_GFX.h>				// https://github.com/adafruit/Adafruit-GFX-Library
+#include <Adafruit_GFX.h>		// https://github.com/adafruit/Adafruit-GFX-Library
 #include <Adafruit_ILI9341.h>		// https://github.com/adafruit/Adafruit_ILI9341
 #include <Fontx.h>							// https://github.com/h-nari/Fontx
-#include <FontxGfx.h>						// https://github.com/h-nari/FontxGfx
+#include <Humblesoft_GFX.h>			// https://github.com/h-nari/Humblesoft_GFX
 #include <Humblesoft_ILI9341.h>	// https://github.com/h-nari/Humblesoft_ILI9341
 
 // #define IMPORT_FONTX_BINARY
@@ -16,11 +16,12 @@ extern const uint8_t ILGH16XB[], ILGZ16XB[];
 #endif
 
 Humblesoft_ILI9341 tft = Humblesoft_ILI9341();
+RomFontx fontx(ILGH16XB,ILGZ16XB);
 
 void setup() {
   delay(100);
   tft.begin();
-  tft.setFontx(ILGH16XB,ILGZ16XB);
+  tft.setFont(&fontx);
   tft.setRotation(3);
   tft.fillScreen(ILI9341_BLACK);
 

@@ -3,64 +3,27 @@
 // #include "uni2sjis.h"
 
 Humblesoft_ILI9341::Humblesoft_ILI9341(int8_t cs, int8_t dc, int8_t rst) :
-  tfa(this), vsa(this), bfa(this),
-  m_fontx(this),Adafruit_ILI9341(cs, dc, rst) {
+  tfa(this), vsa(this), bfa(this), m_lcd(cs, dc, rst),
+  Humblesoft_GFX(ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT) {
   m_cs = cs;
   m_dc = dc;
   
-  m_nScrollStep = 1;
-  m_nScrollPos = 0;
-  m_cScrollBg = ILI9341_BLACK;
+  m_nScrollStep  = 1;
+  m_nScrollPos   = 0;
+  m_cScrollBg    = ILI9341_BLACK;
   m_nScrollDelay = 10;
 }
 
 void Humblesoft_ILI9341::begin()
 {
-  Adafruit_ILI9341::begin();
+  m_lcd.begin();
   setVerticalScrollArea(0,0);
 }
 
-void Humblesoft_ILI9341::writedata(uint8_t *data, uint32_t len)
+void Humblesoft_ILI9341::setRotation(uint8_t r)
 {
-  digitalWrite(m_dc, HIGH);
-  digitalWrite(m_cs, LOW);
-  SPI.writeBytes(data, len);
-  digitalWrite(m_cs, HIGH);
-}
-
-void Humblesoft_ILI9341::resetFontx(void)
-{
-  m_fontx.resetFontx();
-}
-  
-void Humblesoft_ILI9341::addFontx(uint8_t *fontx)
-{
-  m_fontx.addFontx(fontx);
-}
-
-void Humblesoft_ILI9341::setFontx(const uint8_t *f0,const uint8_t *f1,const uint8_t *f2)
-{
-  m_fontx.setFontx(f0,f1,f2);
-}
-
-void Humblesoft_ILI9341::setFont(const GFXfont *f)
-{
-  resetFontx();
-  Adafruit_ILI9341::setFont(f);
-}
-
-
-size_t Humblesoft_ILI9341::write(uint8_t c)
-{
-  m_fontx.write(c, textsize, wrap, textcolor, textbgcolor, gfxFont);
-}
-
-
-void Humblesoft_ILI9341::getTextBounds(char *string, int16_t x0, int16_t y0,
-				       int16_t *x1, int16_t *y1,
-				       uint16_t *w, uint16_t *h)
-{
-  m_fontx.getTextBounds(string, x0, y0, x1, y1, w, h, textsize, wrap);
+  Humblesoft_GFX::setRotation(r);
+  m_lcd.setRotation(r);
 }
 
 void Humblesoft_ILI9341::setScrollPos(int16_t s)
@@ -69,9 +32,9 @@ void Humblesoft_ILI9341::setScrollPos(int16_t s)
   while(s >= m_y1) s += m_y0 - m_y1;
   m_nScrollPos = s;
   
-  writecommand(0x37);	// VSCRSADD command
-  Adafruit_ILI9341::writedata((uint8_t)(s >> 8));
-  Adafruit_ILI9341::writedata((uint8_t)s);
+  m_lcd.writecommand(0x37);	// VSCRSADD command
+  m_lcd.writedata((uint8_t)(s >> 8));
+  m_lcd.writedata((uint8_t)s);
 }
 
 void Humblesoft_ILI9341::scroll(bool bClear)
@@ -127,56 +90,17 @@ void Humblesoft_ILI9341::setVerticalScrollArea(uint16_t hTfa, uint16_t hBfa)
     vsa._height = hVsa;
     bfa._height = hBfa;
 
-    writecommand(0x33);	// VSCRSADD command
-    Adafruit_ILI9341::writedata(hTfa >> 8);
-    Adafruit_ILI9341::writedata(hTfa);
-    Adafruit_ILI9341::writedata(hVsa >> 8);
-    Adafruit_ILI9341::writedata(hVsa);
-    Adafruit_ILI9341::writedata(hBfa >> 8);
-    Adafruit_ILI9341::writedata(hBfa);
+    m_lcd.writecommand(0x33);	// VSCRSADD command
+    m_lcd.writedata(hTfa >> 8);
+    m_lcd.writedata(hTfa);
+    m_lcd.writedata(hVsa >> 8);
+    m_lcd.writedata(hVsa);
+    m_lcd.writedata(hBfa >> 8);
+    m_lcd.writedata(hBfa);
 
     setScrollPos(m_y0);
   }
 }
 
-void Humblesoft_ILI9341::posPrintf(int16_t x,int16_t y,const char *fmt,...)
-{
-  va_list ap;
-  char buf[80];
-  
-  va_start(ap, fmt);
-  vsnprintf(buf,sizeof buf,fmt,ap);
-  va_end(ap);
-
-  setCursor(x,y);
-  print(buf);
-}
-
-void Humblesoft_ILI9341::alignPrintf(int16_t x,int16_t y,TextAlign hAlign,
-				     TextAlign vAlign,const char *fmt,...)
-{
-  va_list ap;
-  char buf[80];
-  int16_t tx,ty;
-  uint16_t tw,th;
-  
-  va_start(ap, fmt);
-  vsnprintf(buf,sizeof buf,fmt,ap);
-  va_end(ap);
-
-  getTextBounds(buf, 0, 0, &tx, &ty, &tw, &th);
-  switch(hAlign){
-  case TA_LEFT:    			break;
-  case TA_CENTER:	x -= tw/2;    	break;
-  case TA_RIGHT:  	x -= tw;	break;
-  }
-  switch(vAlign){
-  case TA_TOP:				break;
-  case TA_CENTER:	y -= th/2;	break;
-  case TA_BOTTOM:	y -= th/2;	break;
-  }
-  setCursor(x,y);
-  print(buf);
-}
 
 

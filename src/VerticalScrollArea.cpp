@@ -1,9 +1,14 @@
 #include "Humblesoft_ILI9341.h"
 
 VerticalScrollArea::VerticalScrollArea(Humblesoft_ILI9341 *parent):
-  Adafruit_GFX(ILI9341_TFTWIDTH, 80), m_fontx(this)
+  Humblesoft_GFX(ILI9341_TFTWIDTH, ILI9341_TFTHEIGHT)
 {
   m_parent = parent;
+}
+
+uint16_t VerticalScrollArea::colorRGB(uint8_t r, uint8_t g, uint8_t b)
+{
+  return m_parent->colorRGB(r,g,b);
 }
 
 void VerticalScrollArea::drawPixel(int16_t x, int16_t y, uint16_t color)
@@ -21,11 +26,6 @@ void VerticalScrollArea::drawPixel(int16_t x, int16_t y, uint16_t color)
       m_parent->drawPixel(x, m_parent->m_y1 + y, color);
     }
   }
-}
-
-size_t VerticalScrollArea::write(uint8_t c)
-{
-  return m_fontx.write(c, textsize, wrap, textcolor, textbgcolor, gfxFont);
 }
 
 void VerticalScrollArea::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
@@ -53,6 +53,7 @@ void VerticalScrollArea::drawFastHLine(int16_t x, int16_t y, int16_t w,
   }
 }
 
+#if 0
 FontxGfxVs::FontxGfxVs(Adafruit_GFX *pGfx) : FontxGfx(pGfx)
 {
 }
@@ -62,6 +63,7 @@ void FontxGfxVs::lineFeedHook(int16_t *pX, int16_t *pY, int16_t h)
   VerticalScrollArea *vsa = (VerticalScrollArea *)m_pGfx;
   vsa->lineFeedHook(pX,pY,h);
 }
+#endif
 
 void VerticalScrollArea::lineFeedHook(int16_t *pX, int16_t *pY, int16_t h)
 {
