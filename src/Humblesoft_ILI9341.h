@@ -66,6 +66,9 @@ class Humblesoft_ILI9341 : public Humblesoft_GFX {
   void scroll(bool bClear=false);
   void scrollDrawPixel(int16_t x, int16_t y, uint16_t color);
   void setVerticalScrollArea(uint16_t tfa, uint16_t bfa);
+  void setAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1) {
+    m_lcd.setAddrWindow(x0, y0, x1, y1);
+  }
   
  protected:
   void process_utf8_byte(uint8_t c, int16_t *pX, int16_t *pY, bool bDraw=true,

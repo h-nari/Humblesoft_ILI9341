@@ -102,5 +102,11 @@ void Humblesoft_ILI9341::setVerticalScrollArea(uint16_t hTfa, uint16_t hBfa)
   }
 }
 
-
+void Humblesoft_ILI9341::writedata(uint8_t *data, uint32_t len)
+{
+  digitalWrite(m_dc, HIGH);
+  digitalWrite(m_cs, LOW);
+  SPI.writeBytes(data, len);
+  digitalWrite(m_cs, HIGH);
+}
 
