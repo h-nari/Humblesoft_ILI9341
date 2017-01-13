@@ -8,6 +8,7 @@ Adafruit_ILI9341の機能拡張版のArduinoライブラリ
 
 * fontxによる日本語表示
  * wrap, getTextBoundsも対応
+ * SPIFFS内fontxファイルにも対応
 * writedata(uint8_t *data, uint32_t len)追加
 * VerticalScrollAreaサポート
 
@@ -20,13 +21,13 @@ Adafruit_ILI9341の機能拡張版のArduinoライブラリ
 * Fontx
  * https://github.com/h-nari/Fontx
 * Humblsefot_GFX
- * https://github.com/h-nari/Humblsefot_GFX
+ * https://github.com/h-nari/Humblesoft_GFX
 
 
 ## 対象ハードウェア
 
 * ESP8266 Ardino + ILI9341をコントローラとするLCD
- * [HSES-LCD24/ 製品情報/ ハンブルソフト](http://www.humblesoft.com/products/HSES-LCD24/ "HSES-LCD24/ 製品情報/ ハンブルソフト")
+ * 例えば、[ハンブルソフト HSES-LCD24](http://www.humblesoft.com/products/HSES-LCD24/ "HSES-LCD24/ 製品情報/ ハンブルソフト")
 * 他のArduinoでも動くかもしれませんが、テストしていません。
 
 ## fontx使用例
