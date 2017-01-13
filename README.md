@@ -19,13 +19,14 @@ Adafruit_ILI9341の機能拡張版のArduinoライブラリ
  * https://github.com/adafruit/Adafruit_ILI9341
 * Fontx
  * https://github.com/h-nari/Fontx
-* FontxGfx
- * https://github.com/h-nari/FontxGfx
+* Humblsefot_GFX
+ * https://github.com/h-nari/Humblsefot_GFX
 
 
 ## 対象ハードウェア
 
 * ESP8266 Ardino + ILI9341をコントローラとするLCD
+ * [HSES-LCD24/ 製品情報/ ハンブルソフト](http://www.humblesoft.com/products/HSES-LCD24/ "HSES-LCD24/ 製品情報/ ハンブルソフト")
 * 他のArduinoでも動くかもしれませんが、テストしていません。
 
 ## fontx使用例
