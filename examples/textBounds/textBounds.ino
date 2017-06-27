@@ -1,20 +1,12 @@
 #include <Adafruit_GFX.h>		// https://github.com/adafruit/Adafruit-GFX-Library
-#include <Adafruit_ILI9341.h>		// https://github.com/adafruit/Adafruit_ILI9341
 #include <Fontx.h>							// https://github.com/h-nari/Fontx
 #include <Humblesoft_GFX.h>			// https://github.com/h-nari/Humblesoft_GFX
 #include <Humblesoft_ILI9341.h>	// https://github.com/h-nari/Humblesoft_ILI9341
 #include <Fonts/FreeSerifBoldItalic9pt7b.h>
-// #define IMPORT_FONTX_BINARY
 
-#ifdef IMPORT_FONTX_BINARY
-IMPORT_BIN("ILGH16XB.FNT", ILGH16XB);
-IMPORT_BIN("ILGZ16XB.FNT", ILGZ16XB);
-extern const uint8_t ILGH16XB[], ILGZ16XB[];
-#else
+
 #include <fontx/ILGH16XB.h>
 #include <fontx/ILGZ16XB.h>
-#endif
-
 
 Humblesoft_ILI9341 tft = Humblesoft_ILI9341();
 RomFontx fontx(ILGH16XB,ILGZ16XB);
@@ -26,7 +18,7 @@ void drawTextAndBounds(int16_t cx, int16_t cy, char *str)
 
   tft.getTextBounds(str, cx, cy, &x, &y, &w, &h);
 	
-  tft.drawRect(x, y, w, h, ILI9341_RED);
+  tft.drawRect(x, y, w, h, tft.rgb("RED"));
   tft.setCursor(cx, cy);
   tft.print(str);
 }
@@ -42,7 +34,7 @@ void setup()
   
   tft.begin();
   tft.setRotation(3);
-  tft.fillScreen(ILI9341_BLACK);
+  tft.fillScreen("BLACK");
 
   tft.setTextSize(4);
   drawTextAndBounds(5, 10, s1);

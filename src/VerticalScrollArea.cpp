@@ -6,10 +6,12 @@ VerticalScrollArea::VerticalScrollArea(Humblesoft_ILI9341 *parent):
   m_parent = parent;
 }
 
-uint16_t VerticalScrollArea::colorRGB(uint8_t r, uint8_t g, uint8_t b)
+#if 0
+uint16_t VerticalScrollArea::rgb(uint8_t r, uint8_t g, uint8_t b)
 {
-  return m_parent->colorRGB(r,g,b);
+  return m_parent->rgb(r,g,b);
 }
+#endif
 
 void VerticalScrollArea::drawPixel(int16_t x, int16_t y, uint16_t color)
 {
@@ -52,18 +54,6 @@ void VerticalScrollArea::drawFastHLine(int16_t x, int16_t y, int16_t w,
     }
   }
 }
-
-#if 0
-FontxGfxVs::FontxGfxVs(Adafruit_GFX *pGfx) : FontxGfx(pGfx)
-{
-}
-
-void FontxGfxVs::lineFeedHook(int16_t *pX, int16_t *pY, int16_t h)
-{
-  VerticalScrollArea *vsa = (VerticalScrollArea *)m_pGfx;
-  vsa->lineFeedHook(pX,pY,h);
-}
-#endif
 
 void VerticalScrollArea::lineFeedHook(int16_t *pX, int16_t *pY, int16_t h)
 {

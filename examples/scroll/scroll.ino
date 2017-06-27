@@ -6,7 +6,7 @@
 // https://github.com/h-nari/Humblesoft_ILI9341
 
 #include <Adafruit_GFX.h>
-#include <Adafruit_ILI9341.h>
+// #include <Adafruit_ILI9341.h>
 #include <Fontx.h>
 #include <Humblesoft_GFX.h>
 #include <Humblesoft_ILI9341.h>
@@ -21,18 +21,18 @@ void setup()
   
   tft.begin();
   tft.setRotation(3);
-  tft.fillScreen(ILI9341_BLACK);
+  tft.fillScreen("BLACK");
 
   tft.setTextSize(8);
   tft.print("Hello");
 
   tft.setCursor(0, 120);
   tft.setTextSize(2);
-  tft.setTextColor(ILI9341_RED);
+  tft.setTextColor("RED");
   tft.print("1234567890");
-  tft.setTextColor(ILI9341_GREEN);
+  tft.setTextColor("GREEN");
   tft.print("1234567890");
-  tft.setTextColor(ILI9341_BLUE);
+  tft.setTextColor("BLUE");
   tft.print("123456");
 
   tft.setScrollStep(-3);

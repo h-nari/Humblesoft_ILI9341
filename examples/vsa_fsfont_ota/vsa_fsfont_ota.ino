@@ -8,7 +8,6 @@
 
 
 #include <Adafruit_GFX.h>		// https://github.com/adafruit/Adafruit-GFX-Library
-#include <Adafruit_ILI9341.h>		// https://github.com/adafruit/Adafruit_ILI9341
 #include <Fontx.h>							// https://github.com/h-nari/Fontx
 #include <FsFontx.h>
 #include <Humblesoft_GFX.h>			// https://github.com/h-nari/Humblesoft_GFX
@@ -28,22 +27,22 @@ void setup()
     Serial.println("SPIFFS.begin() failed.");
 	
   tft.begin();
-  tft.setVerticalScrollArea(20,20);
+  tft.setVerticalScrollArea(40,20);
 
-  tft.tfa.fillScreen(ILI9341_RED);
-  tft.vsa.fillScreen(ILI9341_BLACK);
-  tft.bfa.fillScreen(ILI9341_BLUE);
+  tft.tfa.fillScreen("RED");
+  tft.vsa.fillScreen("BLACK");
+  tft.bfa.fillScreen("BLUE");
   tft.tfa.setTextSize(2);
-  tft.tfa.print("TFA");
-  tft.vsa.setTextColor(ILI9341_WHITE);
+	tft.tfa.setFont(&FreeSerifBoldItalic9pt7b);
+	tft.tfa.setCursor(0,30);
+  tft.tfa.print("Top Fix Area");
+  tft.vsa.setTextColor("WHITE");
   tft.vsa.setFont(&fontx);
   tft.vsa.print("VSA - Vertical Scroll Area\n");
   tft.bfa.print("BFA");
 
 	tft.vsa.print("漢字");
-	tft.vsa.setFont(&FreeSerifBoldItalic9pt7b);
 	tft.vsa.print("ABC");
-	tft.vsa.setFont();
 	tft.vsa.println("defg");
 	tft.vsa.println("12345");
 	
@@ -58,8 +57,8 @@ void setup()
   Serial.print("IP: ");
   Serial.println(WiFi.localIP());
 
-	tft.vsa.print("IP:");
-	tft.vsa.println(WiFi.localIP());
+	tft.bfa.print("   IP:");
+	tft.bfa.print(WiFi.localIP());
 
   ota_init();
 #endif
@@ -68,9 +67,8 @@ void setup()
 void loop()
 {
 #if 1
-	tft.vsa.setFont(&FreeSerifBoldItalic9pt7b);
   static int i=1;
-  tft.vsa.printf("%dline\n",i++);
+  tft.vsa.printf("%d行\n",i++);
   delay(500);
 #endif
 
