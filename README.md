@@ -14,15 +14,9 @@ Adafruit_ILI9341の機能拡張版のArduinoライブラリ
 
 ## 必要な他のライブラリ
 
-* Adafruit_GFX
- * https://github.com/adafruit/Adafruit-GFX-Library
-* Adafruit_ILI9341 (ver1.0.2以降)
- * https://github.com/adafruit/Adafruit_ILI9341
-* Fontx
- * https://github.com/h-nari/Fontx
-* Humblsefot_GFX
- * https://github.com/h-nari/Humblesoft_GFX
-
+* Adafruit_GFX:  https://github.com/adafruit/Adafruit-GFX-Library
+* Fontx:  https://github.com/h-nari/Fontx
+* Humblsefot_GFX: https://github.com/h-nari/Humblesoft_GFX
 
 ## 対象ハードウェア
 
@@ -43,10 +37,14 @@ fontxディレクトリに同梱させていただいているfontxファイル�
 
 ## 謝辞
 
+- Adafruit_ILI9341ライブラリを参考にさせて頂きました。
 - fontx関連の多くの情報はChaNさんのサイトのテクニカルノート"[FONTXの使いかた](http://elm-chan.org/docs/dosv/fontx.html "FONTXの使いかた")"等から得ております。ありがとうございます。
 - その他 fontxファイルを公開された方も、ありがとうございます。
 
 ## 変更履歴
 
+* 1.1.0 2017/06/27(Tue) Adafuit_ILI9341の機能を取り込み、includeしなくなった。
+ * 1.5～5倍程度の高速化を行った。
+ * settAddrWindow, writedata, writecommand等はspi_begin,spi_endで囲まないと動かなくなった。
 * 1.0.1 2016/11/02(Wed) Fontx/FontxGfxライブラリ分離、VerticalScrollAreaサポート
 * 1.0.0 2016/09/07(Wed) 初版リリース
