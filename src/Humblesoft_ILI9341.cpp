@@ -357,16 +357,57 @@ void Humblesoft_ILI9341::drawFastHLine(int16_t x, int16_t y, int16_t w,
 void Humblesoft_ILI9341::fillRect(int16_t x, int16_t y, int16_t w, int16_t h,
   uint16_t color)
 {
-  // rudimentary clipping (drawChar w/big text requires this)
-  if((x >= _width) || (y >= _height)) return;
-  if((x + w - 1) >= _width)  w = _width  - x;
-  if((y + h - 1) >= _height) h = _height - y;
+  if(w > 0 && h > 0){
+    // rudimentary clipping (drawChar w/big text requires this)
+    if((x >= _width) || (y >= _height)) return;
+    if((x + w - 1) >= _width)  w = _width  - x;
+    if((y + h - 1) >= _height) h = _height - y;
+
+    spi_begin();
+    setAddrWindow(x, y, x+w-1, y+h-1);
+    fill_color( color, w * h);
+    spi_end();
+  }
+}
+
+void Humblesoft_ILI9341::drawBitmap(int16_t x, int16_t y,const uint8_t bitmap[],
+				    int16_t w, int16_t h,
+				    uint16_t color, uint16_t bg)
+{
+  int16_t xi,yi;
+  const uint8_t *p = bitmap;
 
   spi_begin();
   setAddrWindow(x, y, x+w-1, y+h-1);
-  fill_color( color, w * h);
+  for(yi=0; yi<h; yi++){
+    for(xi=0; xi<w; xi+=8){
+      uint8_t m = 0x80;
+      uint8_t d = *p++;
+      for(int i=0; i<8 && xi+i < w; i++,m>>=1)
+	pixel_write(m & d ? color : bg);
+    }
+  }
+  pixel_flush();
   spi_end();
 }
+
+void Humblesoft_ILI9341::drawRGBBitmap(int16_t x, int16_t y,
+				       const uint16_t bitmap[],
+				       int16_t w, int16_t h)
+{
+  int16_t xi,yi;
+  const uint16_t *p = bitmap;
+
+  spi_begin();
+  setAddrWindow(x, y, x+w-1, y+h-1);
+  for(yi=0; yi<h; yi++){
+    for(xi=0; xi<w; xi++)
+      pixel_write(*p++);
+  }
+  pixel_flush();
+  spi_end();
+}
+
 
 void Humblesoft_ILI9341::setAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1,
 				       uint16_t y1)
@@ -398,7 +439,7 @@ void Humblesoft_ILI9341::fill_color(uint16_t color, uint32_t len)
   uint8_t lo = color;
   for(uint32_t i=0; i<len;i++)
     pixel_write(hi,lo);
-  pixel_flash();
+  pixel_flush();
 }
 
 void
@@ -418,7 +459,7 @@ Humblesoft_ILI9341::drawFontxGlyph(const uint8_t *glyph,uint8_t w,uint8_t h,
     int16_t y0 = cy;
     int16_t x1 = x0 + w * s;
     int16_t y1 = y0 + h * s;
-
+    
     if(x0 < _width && y0 < _height && x1 > 0 && y1 > 0){
     
       if(x0 < 0) x0 = 0;
@@ -446,7 +487,7 @@ Humblesoft_ILI9341::drawFontxGlyph(const uint8_t *glyph,uint8_t w,uint8_t h,
 	}
 	gp += (w + 7) / 8;
       }
-      pixel_flash();
+      pixel_flush();
       spi_end();
     }
   }

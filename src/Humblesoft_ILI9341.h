@@ -116,6 +116,11 @@ class Humblesoft_ILI9341 : public Humblesoft_GFX {
   void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color) override;
   void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color) override;
   void invertDisplay(boolean i) override;
+  void drawBitmap(int16_t x, int16_t y,const uint8_t bitmap[],
+		  int16_t w, int16_t h, uint16_t color, uint16_t bg);
+  void drawRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[],
+		     int16_t w, int16_t h);
+  
   void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
     override;
   void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, int16_t color){
@@ -158,28 +163,27 @@ class Humblesoft_ILI9341 : public Humblesoft_GFX {
   };
   inline void pixel_write(uint16_t color){
     if(m_pbi > PIXEL_BUF_SIZE-2)
-      pixel_flash();
+      pixel_flush();
     m_pixelBuf[m_pbi++] = color >> 8;
     m_pixelBuf[m_pbi++] = color;
   };
   inline void pixel_write(uint8_t hi, uint8_t lo){
     if(m_pbi > PIXEL_BUF_SIZE-2)
-      pixel_flash();
+      pixel_flush();
     m_pixelBuf[m_pbi++] = hi;
     m_pixelBuf[m_pbi++] = lo;
   };
-  void pixel_flash(void) {
+  void pixel_flush(void) {
     if(m_pbi > 0){
       writedata(m_pixelBuf, m_pbi);
       m_pbi = 0;
     }
   };
   void fill_color(uint16_t color, uint32_t len);
-  virtual void
-    drawFontxGlyph(const uint8_t *glyph,uint8_t w,uint8_t h,
-		   int16_t cx, int16_t cy,
-		   uint8_t textsize, boolean wrap ,
-		   uint16_t textcolor, uint16_t textbgcolor) override;
+  void drawFontxGlyph(const uint8_t *glyph,uint8_t w,uint8_t h,
+		      int16_t cx, int16_t cy,
+		      uint8_t textsize, boolean wrap ,
+		      uint16_t textcolor, uint16_t textbgcolor) override;
 };
 
 
