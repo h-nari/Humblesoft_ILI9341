@@ -444,21 +444,23 @@ void Humblesoft_ILI9341::fill_color(uint16_t color, uint32_t len)
 
 void
 Humblesoft_ILI9341::drawFontxGlyph(const uint8_t *glyph,uint8_t w,uint8_t h,
-				  int16_t cx, int16_t cy,
-				  uint8_t textsize, boolean /* wrap */,
-				  uint16_t textcolor, uint16_t textbgcolor)
+				   int16_t cx, int16_t cy,
+				   uint8_t textsize_x,uint8_t textsize_y,
+				   boolean /* wrap */,
+				   uint16_t textcolor, uint16_t textbgcolor)
 {
   if(glyph == NULL) return;
   else if(textcolor == textbgcolor)
-    Humblesoft_GFX::drawFontxGlyph(glyph,w,h,cx,cy,
-				   textsize, wrap,textcolor,textbgcolor);
+    Humblesoft_GFX::drawFontxGlyph( glyph, w, h, cx, cy, textsize_x,
+				    textsize_y,wrap,textcolor,textbgcolor);
   else {
     const uint8_t *gp = glyph;
-    uint8_t s = textsize < 1 ? 1 : textsize;
+    uint8_t sx = textsize_x < 1 ? 1 : textsize_x;
+    uint8_t sy = textsize_y < 1 ? 1 : textsize_y;
     int16_t x0 = cx;
     int16_t y0 = cy;
-    int16_t x1 = x0 + w * s;
-    int16_t y1 = y0 + h * s;
+    int16_t x1 = x0 + w * sx;
+    int16_t y1 = y0 + h * sy;
     
     if(x0 < _width && y0 < _height && x1 > 0 && y1 > 0){
     
@@ -472,13 +474,13 @@ Humblesoft_ILI9341::drawFontxGlyph(const uint8_t *glyph,uint8_t w,uint8_t h,
 
       int yp = cy;
       for (int y = 0; y < h; y++) {
-	for(int yi = 0; yi < s; yi++,yp++){
+	for(int yi = 0; yi < sy; yi++,yp++){
 	  if(yp >= y0 && yp < y1){
 	    int xp = cx;
 	    for (int x = 0; x < w; x += 8) {
 	      uint8_t d = pgm_read_byte(&gp[x / 8]);
 	      for (int i = 0, m = 0x80; i < 8 && i + x < w; i++, m >>= 1){
-		for(int xi=0; xi < s; xi++,xp++)
+		for(int xi=0; xi < sx; xi++,xp++)
 		  if(xp >= x0 && xp < x1)
 		    pixel_write(d & m ? textcolor : textbgcolor);
 	      }

@@ -182,7 +182,7 @@ class Humblesoft_ILI9341 : public Humblesoft_GFX {
   void fill_color(uint16_t color, uint32_t len);
   void drawFontxGlyph(const uint8_t *glyph,uint8_t w,uint8_t h,
 		      int16_t cx, int16_t cy,
-		      uint8_t textsize, boolean wrap ,
+		      uint8_t textsize_x,uint8_t textsize_y, boolean wrap,
 		      uint16_t textcolor, uint16_t textbgcolor) override;
 };
 
