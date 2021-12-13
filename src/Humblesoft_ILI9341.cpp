@@ -19,7 +19,6 @@ Humblesoft_ILI9341::Humblesoft_ILI9341(int8_t cs, int8_t dc, int8_t rst,
     m_spi = spi;
   else
     m_spi = &SPI;
-  log_i("c:%d dc:%d rst:%d", cs, dc, rst);
   m_cs = cs;
   m_cs_mask = 1 << cs;
   m_dc = dc;
@@ -38,7 +37,6 @@ void Humblesoft_ILI9341::begin() {
   pinMode(m_dc, OUTPUT);
   pinMode(m_cs, OUTPUT);
   if (m_rst >= 0) {
-    log_i("LCD reset");
     pinMode(m_rst, OUTPUT);
     digitalWrite(m_rst, HIGH);
     delay(10);
@@ -310,8 +308,22 @@ void Humblesoft_ILI9341::setVerticalScrollArea(uint16_t hTfa, uint16_t hBfa) {
 }
 
 void Humblesoft_ILI9341::writedata(uint8_t *data, uint32_t len) {
-  // cs_active();
+// cs_active();
+#if defined(ESP8266)
+  uint8_t *p = data;
+  uint32_t left = len;
+  long adr = (long)p;
+  while (left > 0 && (adr & 3)) m_spi->write(*p++), left--, adr++;
+  uint32_t len2 = left & ~3;
+  if (len2 > 0) m_spi->writeBytes(p, len2);
+  left -= len2;
+  while (left > 0) m_spi->write(*p++), left--;
+#elif defined(ESP32)
   m_spi->writeBytes(data, len);
+#else
+  uint32_t *end = data + len;
+  while (p < end) m_spi->write(*p++);
+#endif
   // cs_idle();
 }
 

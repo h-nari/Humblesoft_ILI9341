@@ -43,6 +43,7 @@ fontxディレクトリに同梱させていただいているfontxファイル�
 
 ## 変更履歴
 
+* 1.3.0 2021/12/13(Mon) ESP32対応、 Adafruit-GFX-Library 1.10.12で動作確認
 * 1.2.0 2019/09/12(Thr) Adafuit-GFX-Library 1.5.6対応
 * 1.1.0 2017/06/27(Tue) Adafuit_ILI9341の機能を取り込み、includeしなくなった。
  * 1.5～5倍程度の高速化を行った。
