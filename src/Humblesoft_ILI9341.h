@@ -174,6 +174,7 @@ class Humblesoft_ILI9341 : public Humblesoft_GFX {
   inline void dc_command(void) { GPIO_OUT_W1TC = m_dc_mask; };
   inline void dc_data(void) { GPIO_OUT_W1TS = m_dc_mask; };
 #else
+#error neither ESP8266 nor ESP32
   inline void cs_active(void) { digitalWrite(m_cs, LOW); };
   inline void cs_idle(void) { digitalWrite(m_cs, HIGH); };
   inline void dc_command(void) { digitalWrite(m_dc, LOW); };
